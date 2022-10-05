@@ -8,7 +8,6 @@
         <title> Coding Train: Data/ APIs 1.1</title>
     </head>
     <body>
-        <img src="" id="pict" width="400" />
         <script>
             console.log('fetching car pic...');
 
@@ -20,9 +19,19 @@
             });
 
             async function catchCar() {
-                const response = await fetch('alfa.jpg');
-                const blob = await response.blob();
-                document.getElementById('pict').src = URL.createObjectURL(blob);
+                const pics = ["alfa", "checo", "indy"];
+                for (let i=0;i<pics.length;i++) {
+                    let path = "images/".concat(pics[i]).concat(".jpg");
+                    const alfa = await fetch(path);
+                    const blob = await alfa.blob();
+
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(blob)
+                    img.width = "400"
+
+                    document.body.appendChild(img);
+                    //document.getElementById('pict').src = URL.createObjectURL(blob);
+                }
             }
             /*
             fetch('alfa.jpg')
