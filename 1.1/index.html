@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF=8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title> Coding Train: Data/ APIs 1.1</title>
+    </head>
+    <body>
+        <img src="" id="pict" width="400" />
+        <script>
+            console.log('fetching car pic...');
+
+            catchCar()
+            .then(console.log('caught car pic!'))
+            .catch(error => {
+                console.log("error found!!!")
+                console.error(error);
+            });
+
+            async function catchCar() {
+                const response = await fetch('alfa.jpg');
+                const blob = await response.blob();
+                document.getElementById('pict').src = URL.createObjectURL(blob);
+            }
+            /*
+            fetch('alfa.jpg')
+            .then(response => {
+                console.log(response);
+                return response.blob();
+            })
+            .then(blob => {
+                console.log(blob);
+                document.getElementById('pict').src = URL.createObjectURL(blob);
+            })*/
+            
+        </script>
+    </body>
+</html>
