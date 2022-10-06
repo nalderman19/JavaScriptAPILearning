@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF=8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title> Coding Train: Data/ APIs 1.2</title>
+    </head>
+    <body>
+        <script>
+
+
+            getData()
+            .catch(error => {
+                console.log("error found!!!")
+                console.error(error);
+            });
+
+
+            async function getData() {
+                const response = await fetch('data.csv');
+                const data = await response.text();
+
+                const tablerows = data.split('\n').slice(1);
+                tablerows.forEach(i => {
+                    const r = i.split(',');
+                    const year = r[0];
+                    const temp = r[1];
+
+                    console.log(year, temp);
+                });
+
+            }
+        </script>
+    </body>
+</html>
