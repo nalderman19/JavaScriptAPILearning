@@ -24,15 +24,38 @@
             async function makeChart() {
                 const data = await getData();
                 const ctx = document.getElementById('chart').getContext('2d');
-                
+
+                const gTemps = data.y.map(x => x[0]).flat(2);
+                const nTemps = data.y.map(x => x[1]).flat(2);
+                const sTemps = data.y.map(x => x[2]).flat(2);  
+
                 const myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: data.x,
-                        datasets: [{
-                            label: 'Average Temperature',
-                            data: data.y,
+                        datasets: [
+                            {
+                            label: 'Average Global Temperature',
+                            data: gTemps,
                             borderColor: 'rgba(255, 10, 230, 1)',
+                            borderWidth: 1,
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            tension: 0.25
+                        },
+                        {
+                            label: 'Average Norther Hemisphere Temperature',
+                            data: nTemps,
+                            borderColor: 'rgb(30, 10, 230, 1)',
+                            borderWidth: 1,
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            tension: 0.25
+                        },
+                        {
+                            label: 'Average Southern Hemisphere Temperature',
+                            data: sTemps,
+                            borderColor: 'rgba(10, 200, 230, 1)',
                             borderWidth: 1,
                             pointRadius: 0,
                             borderWidth: 1.5,
@@ -66,9 +89,13 @@
                 tablerows.forEach(i => {
                     const r = i.split(',');
                     const year = r[0];
-                    const temp = r[1];
+                    const tempA = r[1];
+                    const tempN = r[2];
+                    const tempS = r[3];
                     x.push(year);
-                    y.push(parseFloat(temp) + 14);
+                    y.push([[parseFloat(tempA) + 14],
+                            [parseFloat(tempN) + 14],
+                            [parseFloat(tempS) + 14]]);
                 });
                 return {x,y}
             }
