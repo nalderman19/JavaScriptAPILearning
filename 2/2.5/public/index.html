@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF=8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title> Coding Train: Data/ APIs 2</title>
+    </head>
+    <body>
+        <h1> My Computer Geographic Location</h1>
+        <p>The Coordinates of the the computer are... <br/>
+            Latitude: <span id="latitude"></span>&deg;<br/>
+            Longitude: <span id="longitude"></span>&deg;
+        </p>
+        <input id="word"/>
+        <button id="but1">Submit</button>
+
+        <script>
+
+            document.getElementById('but1').addEventListener('click', () => {
+                if ('geolocation' in navigator) {
+                    navigator.geolocation.getCurrentPosition(async pos => {
+                        const lati = await pos.coords.latitude;
+                        const long = await pos.coords.longitude;
+                        const time = Date(await pos.timestamp * 1000);
+                        const word = document.getElementById('word').value;
+                        document.getElementById('latitude').textContent = await lati;
+                        document.getElementById('longitude').textContent = await long;
+
+                        const data = {word, lati, long, time};
+                        const options = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data),
+                        };
+                        const response = await fetch('/api', options);
+                        const json = await response.json();
+                        console.log(json);
+                    });
+                } else {
+                    console.log('no geolocate');
+                }
+            });
+        </script>
+    </body>
+</html>

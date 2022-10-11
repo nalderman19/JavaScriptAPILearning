@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF=8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title> Coding Train: Data/ APIs 2</title>
+    </head>
+    <body>
+        <h1> My Word Database</h1>
+        <p>The Contents of the the database are... <br/></p>
+        <script>
+
+            async function getData() {
+                const response = await fetch('/db');
+                const data = await response.json();
+
+                console.log(data);
+
+            }
+
+            function main(){
+                getData();
+            }
+
+            main();
+        </script>
+    </body>
+</html>
