@@ -19,13 +19,13 @@ app.post('/api', (request, response) => {
     });
 });
 
-app.get('/db', (request, response) => {
-    db.find({word: 'Dog'}, (err, docs) => {
+app.post('/db', (request, response) => {
+    const kw = request.body.searchWord;
+    db.find({word: kw}, (err, docs) => {
         if (err) {
             response.send('bad search');
         } else {
             response.json(docs);
         }
     });
-
 });
