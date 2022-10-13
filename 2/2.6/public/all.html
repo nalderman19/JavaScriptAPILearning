@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF=8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            #gable {
+              font-family: Arial, Helvetica, sans-serif;
+              border-collapse: collapse;
+              width: 40%;
+            }
+            
+            #gable td, #gable th {
+              border: 1px solid #ddd;
+              padding: 8px;
+            }
+            
+            #gable tr:nth-child(even){background-color: #f2f2f2;}
+            
+            #gable tr:hover {background-color: #ddd;}
+            
+            #gable th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              background-color: #e3b718;
+              color: white;
+            }
+            </style>
+        <title> Coding Train: Data/ APIs 2</title>
+    </head>
+    <body>
+        <h1> My Word Database</h1>
+        <p>The Contents of the the database query are... <br/></p>
+        
+        <input id="word"/>
+        <button id="but1">Search</button>
+
+        <table id="gable">
+            <th>Word</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Time</th>
+        </table>
+        <script>
+
+            async function getData() {
+                const searchWord = document.getElementById('word').value;
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({searchWord}),
+                };
+
+                const response = await fetch('/db', options);
+                const data = await response.json();
+                //console.log(data);
+                append_json(data);
+            }
+
+            function append_json(data){
+                const table = document.getElementById('gable');
+                data.forEach(obj => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = '<td>' + obj.word + '</td>' +
+                                   '<td>' + String(obj.lati).slice(0,String(obj.lati).length-10) + '</td>' +
+                                   '<td>' + String(obj.long).slice(0,String(obj.long).length-10) + '</td>' +
+                                   '<td>' + getTime(obj.time) + '</td>';
+                    table.appendChild(tr);
+                });
+                
+            }
+
+            function getTime(time) {
+                return time.slice(0, time.length - 40);
+            }
+
+            function main(){
+                getData();
+            }
+            document.getElementById('but1').addEventListener('click', () => {
+                main();
+            });
+        </script>
+    </body>
+</html>
