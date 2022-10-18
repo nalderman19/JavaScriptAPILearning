@@ -12,6 +12,7 @@ print(signal)
 # lengthen signal to be exactly 1 second (22050 samples) for the model
 out = np.array(y)
 out.resize((22050), refcheck=False)
+out = np.roll(out, 9999)
 lbs.output.write_wav("./scripts/predict/audio1.wav", out, sr)
 
 
@@ -29,6 +30,4 @@ with open("./scripts/predict/pred.txt", 'w') as f:
 
 #os.remove('/predict/audio.wav')
 
-# TODO - write text file containing prediction,
-# or figure out how to send it directly back to index.js (server)
-
+# TODO figure out how to send it directly back to index.js (server)

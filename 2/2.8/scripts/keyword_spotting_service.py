@@ -2,6 +2,7 @@ import tensorflow.keras as keras
 import numpy as np
 import librosa as lbs
 
+# MODEL_PATH = "model.h5"
 MODEL_PATH = "scripts/model.h5"
 NUM_SAMPLES = 22050
 
@@ -66,16 +67,17 @@ def Keyword_Spotting_Service():
     return _Keyword_Spotting_Service._instance
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     
-    kss = Keyword_Spotting_Service()
+    # kss = Keyword_Spotting_Service()
     
-    keyword1 = kss.predict("Testing_files/down_1.wav")
-    keyword2 = kss.predict("Testing_files/go_2.wav")
-    keyword3 = kss.predict("Testing_files/sheila_1.wav")
-    print(keyword1)
-    print(keyword2)
-    print(keyword3)
+    # keyword1 = kss.predict("Testing_files/down_1.wav")
+    # keyword2 = kss.predict("Testing_files/go_2.wav")
+    # keyword3 = kss.predict("Testing_files/sheila_1.wav")
+    # print(keyword1)
+    # print(keyword2)
+    # print(keyword3)
+
 
 
 
