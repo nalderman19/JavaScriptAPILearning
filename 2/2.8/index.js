@@ -38,23 +38,23 @@ app.post('/audio', (request, response) => {
         wavUrl.split('base64,')[1],
         'base64'
         )
-    fs.writeFileSync('./audio.wav', buffer);
+    fs.writeFileSync('scripts/predict/audio.wav', buffer);
     //db.insert(data);
     response.json({
         status: "sent"
     });
 });
 
-// const pythonChild = spawn('python', ['test.py']);
+const pythonChild = spawn('python', ['./scripts/app.py']);
 
-// pythonChild.stdout.on('data', (data) => {
-//     console.log("stdout: ", data.toString());
-// });
+pythonChild.stdout.on('data', (data) => {
+    console.log("stdout: ", data.toString());
+});
 
-// pythonChild.stderr.on('data', (data) => {
-//     console.error("stderr: ", data.toString());
-// });
+pythonChild.stderr.on('data', (data) => {
+    console.error("stderr: ", data.toString());
+});
 
-// pythonChild.on('close', (code) => {
-//     console.log("Exited With code:", code.toString());
-// })
+pythonChild.on('close', (code) => {
+    console.log("Exited With code:", code.toString());
+})
